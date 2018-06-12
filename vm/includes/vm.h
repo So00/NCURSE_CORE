@@ -6,18 +6,18 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/20 16:11:17 by pclement          #+#    #+#             */
-/*   Updated: 2018/06/12 15:44:47 by atourner         ###   ########.fr       */
+/*   Updated: 2018/06/12 18:37:21 by atourner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 # include "op.h"
-# include <ncurses.h>
 # include "../libft/libft.h"
 # include "stdlib.h"
 # include "unistd.h"
 # include "stdio.h"
+# include <ncurses.h>
 # define P_SIZE proc->loaded_op.param_size
 
 
@@ -63,6 +63,7 @@ typedef struct		s_player
 typedef struct		s_info
 {
 	unsigned char	board[MEM_SIZE];
+	long int		live_board[MEM_SIZE];
 	t_proc			*first_processus;
 	int				cycles_to_die;
 	int				cycles;
@@ -78,8 +79,8 @@ typedef struct		s_info
 	int				countdown_to_die;
 }					t_info;
 
-int					ft_atoi_cor(const char *str);
-void				ft_error(int error_code);
+int					ft_atoi_cor(const char *str, t_info *info);
+void				ft_error(int error_code, t_info *info);
 t_info				*ft_init_info(void);
 void				ft_check_argc(int argc, char **argv, t_info *info);
 void				ft_define_players(int argc, char **argv, t_info *info);
@@ -131,8 +132,11 @@ int					ft_param_180(t_info *info, t_proc *proc, int param);
 int					ft_param_212(t_info *info, t_proc *proc, int param);
 int					ft_param_228(t_info *info, t_proc *proc, int param);
 int					ft_param_244(t_info *info, t_proc *proc, int param);
+void				ft_init_live_board(long int *live_board);
 void				ft_visu(t_info *info);
-void				print_bulbasaur(t_info *info, WINDOW *player);
 void				print_pikachu(t_info *info, WINDOW *player);
+void				print_bulbasaur(t_info *info, WINDOW *player);
+void				wait_plz(int ms);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: atourner <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:33:52 by atourner          #+#    #+#             */
-/*   Updated: 2018/05/07 17:53:35 by atourner         ###   ########.fr       */
+/*   Updated: 2018/06/12 19:29:27 by atourner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,13 @@ t_label				*ft_get_label(char **file, int line)
 		if (get_current_label(file, &line, &first) < 0)
 			return (NULL);
 	}
+		for (t_label *act = first; act; act = act->next)
+		{
+			ft_printf("Voici le label courant : %s\n", act->name);
+			for (t_op *actO = act->op; actO; actO = actO->next)
+			{
+				ft_printf("Ajout de l'operation %d\n", actO->op);
+			}
+		}
 	return (first);
 }

@@ -6,7 +6,7 @@
 /*   By: nvergnac <nvergnac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:02:56 by nvergnac          #+#    #+#             */
-/*   Updated: 2018/06/06 16:03:02 by nvergnac         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:09:55 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	free_player(t_player *player)
 {
-	size_t	bytes_nb;
-
-	bytes_nb = 0;
 	if (player)
 	{
 		if (player->header != 0)
@@ -29,9 +26,7 @@ void	free_player(t_player *player)
 			ft_bzero(player->program, player->size);
 			free(player->program);
 		}
-		bytes_nb = sizeof(int) * 6 + (sizeof(char *) + sizeof(void *)) * 2;
-		ft_bzero(player, bytes_nb);
-		free(player);
+		ft_bzero(player, sizeof(t_player));
 	}
 }
 
@@ -51,7 +46,15 @@ void	ft_free_lst_proc(t_proc *proc_lst)
 
 int		ft_free_all(t_info *info)
 {
+	int i;
+
+	i = 0;
 	ft_free_lst_proc(info->first_processus);
+	while (i < MAX_PLAYERS)
+	{
+		free_player(&(info->players_info[i]));
+		i++;
+	}
 	free(info);
 	info = 0;
 	return (0);

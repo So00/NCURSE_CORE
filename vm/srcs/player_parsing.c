@@ -6,7 +6,7 @@
 /*   By: pclement <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/27 12:24:21 by pclement          #+#    #+#             */
-/*   Updated: 2018/05/29 17:54:23 by nvergnac         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:48:05 by pclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int				ft_check_header(t_player *player)
 {
 	int		i;
 
+	i = 0;
 	if (player->magic != COREWAR_EXEC_MAGIC)
 		return (1);
-	i = 0;
 	while (i < 4)
 	{
 		if (player->name[PROG_NAME_LENGTH + i] != 0)
@@ -27,6 +27,8 @@ int				ft_check_header(t_player *player)
 			return (1);
 		i++;
 	}
+	if (player->size > CHAMP_MAX_SIZE)
+		return (1);
 	return (0);
 }
 
@@ -34,7 +36,6 @@ int				get_header(t_player *player)
 {
 	int		ret;
 	int		count;
-
 
 	ret = 0;
 	count = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
@@ -44,9 +45,11 @@ int				get_header(t_player *player)
 	ret = read(player->fd, player->header, count);
 	if (ret != count)
 		return (1);
-	player->magic = ft_ptr_to_uint_parsing((unsigned char *)(player->header), 4);
+	player->magic = ft_ptr_to_uint_parsing(
+			(unsigned char *)(player->header), 4);
 	player->name = (char*)(player->header + 4);
-	player->size = ft_ptr_to_uint_parsing((unsigned char *)(player->header + 8 + PROG_NAME_LENGTH), 4);
+	player->size = ft_ptr_to_uint_parsing((unsigned char *)(player->header
+				+ 8 + PROG_NAME_LENGTH), 4);
 	player->comment = (char*)(player->header + PROG_NAME_LENGTH + 12);
 	return (ft_check_header(player));
 }
@@ -77,10 +80,12 @@ int				set_vm(t_info *info)
 	int		i;
 
 	i = 0;
+	address = 0;
 	while (i < info->players_nb)
 	{
 		address = i * MEM_SIZE / info->players_nb;
-		ft_memcpy((void *)(info->board + address), (void *)(info->players_info[i].program),
+		ft_memcpy((void *)(info->board + address),
+				(void *)(info->players_info[i].program),
 				(size_t)info->players_info[i].size);
 		i++;
 	}
