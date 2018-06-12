@@ -55,10 +55,10 @@ LIB:
 	@make -C $(LIB_PATH)
 
 %.o : %.c
-	@gcc $(FLAGS) -o $@ -c $< -I$(LIB_PATH)/includes -Iincludes
+	@gcc -o $@ -c $< -I$(LIB_PATH)/includes -Iincludes
 
 $(NAME) : $(COMP_NAME)
-	@gcc $(FLAGS) -o $(NAME) $(COMP_NAME) $(LIB_PATH)/libftprintf.a
+	@gcc -o $(NAME) $(COMP_NAME) $(LIB_PATH)/libftprintf.a
 	@echo "\033[0;35mCompilation de la l'assembleur fini\033[0m"
 
 leaks:
