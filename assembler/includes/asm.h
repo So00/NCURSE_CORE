@@ -101,6 +101,7 @@ int					ft_add_act_op(unsigned char *ret, t_op *op,
 		t_label *first, int *i);
 void				ft_print_error(int type, int len);
 void				ft_get_describe_len(int *name_len, int *cmd_len, int *len);
-int					ft_strncmp_s(char **file, int *act, int choice);
+int					ft_strncmp_s(char *file);
+int					ft_noth_after(char *line, int ret);
 
 #endif

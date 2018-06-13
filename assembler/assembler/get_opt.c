@@ -86,11 +86,6 @@ static int		get_act_opt(char **file, int *line, t_label *act)
 			return (-1);
 		if (file[*line])
 			*line += 1;
-			for (t_op *actO = act->op; actO; actO = actO->next)
-			{
-				if (actO->op == 0)
-					ft_printf("file %s line %d lab %s\n", file[*line], *line, act->name);
-			}
 	}
 	return (0);
 }

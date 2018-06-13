@@ -12,7 +12,9 @@
 
 NAME = asm
 
-FLAGS = -Wall -Werror -Wextra
+#FLAGS = -Wall -Werror -Wextra
+
+FLAGS =
 
 SRC_PATH = assembler/
 
@@ -55,7 +57,7 @@ LIB:
 	@make -C $(LIB_PATH)
 
 %.o : %.c
-	@gcc -o $@ -c $< -I$(LIB_PATH)/includes -Iincludes
+	@gcc -o $@ $(FLAGS) -c $< -I$(LIB_PATH)/includes -Iincludes
 
 $(NAME) : $(COMP_NAME)
 	@gcc -o $(NAME) $(COMP_NAME) $(LIB_PATH)/libftprintf.a
