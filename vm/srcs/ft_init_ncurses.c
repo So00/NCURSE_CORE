@@ -13,12 +13,6 @@
 #include <time.h>
 #include "vm.h"
 
-void		wait_plz(int ms)
-{
-    clock_t start = clock();
-    while ((clock() - start) * 1000 < (unsigned long)ms * CLOCKS_PER_SEC);
-}
-
 void		option_ncurses()
 {
 	curs_set(0);
@@ -34,7 +28,7 @@ void		option_ncurses()
 	init_pair(8, COLOR_CYAN, COLOR_BLACK);
 }
 
-int			init_ncurse(WINDOW **board, WINDOW **player)
+int			ft_init_ncurse(WINDOW **board, WINDOW **player)
 {
 	static int	first = 0;
 
@@ -58,4 +52,20 @@ int			init_ncurse(WINDOW **board, WINDOW **player)
 		return (0);
 	}
 	return (1);
+}
+
+void		is_proc(int i, t_proc *act, WINDOW *board)
+{
+	while (act)
+	{
+		if (act->pc == i && act->alive != -1)
+		{
+			if (act->carry)
+				wattron(board, COLOR_PAIR(3));
+			else
+				wattron(board, COLOR_PAIR(2));
+			break;
+		}
+		act = act->next;
+	}
 }
