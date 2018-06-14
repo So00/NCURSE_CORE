@@ -13,7 +13,6 @@
 #include "ft_printf.h"
 #include "asm.h"
 #include "op.h"
-#include <dirent.h>
 
 /*
 **	si file est null, erreur, sinon je l'imprime dans le fichier
@@ -40,6 +39,5 @@ of your file %s\n", av[0]);
 			}
 		}
 	}
-	while (1);
 	return (0);
 }

@@ -12,9 +12,7 @@
 
 NAME = asm
 
-#FLAGS = -Wall -Werror -Wextra
-
-FLAGS =
+FLAGS = -Wall -Werror -Wextra
 
 SRC_PATH = assembler/
 
